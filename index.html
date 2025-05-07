@@ -9,6 +9,7 @@
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -24,6 +25,17 @@
         }
       }
     }
+// tailwind.config.js
+module.exports = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      transitionProperty: {
+        'scale': 'scale',
+      }
+    }
+  }
+}
   </script>
   <link rel="icon" href="/favicon.ico" />
   <style>
@@ -49,7 +61,50 @@
         <li><a href="#contact" class="hover:text-c4">Contact</a></li>
       </ul>
       <div class="flex items-center">
-        <button id="themeToggle" class="mr-4" aria-label="Toggle dark mode">🌙</button>
+       <!-- In your HTML -->
+<!-- In your navbar section -->
+<button 
+  id="themeToggle"
+  class="mr-4 p-2 rounded-lg bg-gray-200 dark:bg-gray-700 transition-colors"
+  aria-label="Toggle dark mode"
+>
+  🌙
+</button>
+
+<!-- In your JavaScript at the bottom -->
+<script>
+// Unified Theme Toggle Implementation
+document.addEventListener('DOMContentLoaded', () => {
+  const themeToggle = document.getElementById('themeToggle');
+  const htmlEl = document.documentElement;
+
+  // Initialize theme from localStorage
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  if(savedTheme === 'dark') {
+    htmlEl.classList.add('dark');
+    themeToggle.textContent = '☀️';
+    themeToggle.setAttribute('aria-label', 'Switch to light mode');
+  }
+
+  // Toggle handler
+  themeToggle.addEventListener('click', () => {
+    const isDark = htmlEl.classList.toggle('dark');
+    themeToggle.textContent = isDark ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', 
+      isDark ? 'Switch to light mode' : 'Switch to dark mode'
+    );
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    
+    // Add temporary animation class
+    themeToggle.classList.add('scale-110');
+    setTimeout(() => {
+      themeToggle.classList.remove('scale-110');
+    }, 200);
+  });
+});
+
+// Remove the duplicate theme toggle script from your navbar section
+</script>
         <a href="/Gideon_Resume.pdf" download class="bg-c4 text-white px-4 py-2 rounded-lg hover:opacity-90">Resume</a>
         <button id="nav-toggle" class="md:hidden ml-4">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -120,7 +175,7 @@
         <ul class="flex justify-center space-x-8">
           <li>
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/Muchina27ke"
               class="social-link text-gray-600 hover:text-accent dark:text-gray-300"
               target="_blank"
               rel="noopener noreferrer"
@@ -133,7 +188,7 @@
           </li>
           <li>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://linkedin.com/in/Gideon Muchina"
               class="social-link text-gray-600 hover:text-accent dark:text-gray-300"
               target="_blank"
               rel="noopener noreferrer"
@@ -146,7 +201,7 @@
           </li>
           <li>
             <a
-              href="https://twitter.com/yourusername"
+              href="https://twitter.com/"
               class="social-link text-gray-600 hover:text-accent dark:text-gray-300"
               target="_blank"
               rel="noopener noreferrer"
@@ -273,113 +328,101 @@
     </div>
   </section>
 
- <!-- Experience & Education -->
+<!-- Experience & Education -->
 <section
-id="experience"
-class="py-20 bg-c1 dark:bg-dark overflow-hidden"
-aria-labelledby="exp-ed-heading"
+  id="experience"
+  class="py-20 bg-c1 dark:bg-dark overflow-hidden"
+  aria-labelledby="exp-ed-heading"
 >
-<div class="container mx-auto px-6">
-  <h2
-    id="exp-ed-heading"
-    class="text-3xl font-semibold mb-12 text-center fade-in"
-  >
-    Experience &amp; Education
-  </h2>
+  <div class="container mx-auto px-6">
+    <h2
+      id="exp-ed-heading"
+      class="text-3xl font-semibold mb-12 text-center fade-in"
+    >
+      Experience &amp; Education
+    </h2>
 
-  <!-- Vertical line -->
-  <div class="relative">
-    <div
-      class="absolute left-1/2 transform -translate-x-1 w-1 bg-c4 h-full"
-      aria-hidden="true"
-    ></div>
+    
+      <!-- Timeline list -->
+      <ol class="space-y-16">
+        <!-- Item 1: IT Support -->
+        <li
+          class="fade-in md:flex md:items-center"
+          role="listitem"
+        >
+          <div class="md:w-1/2 md:pr-12 md:text-right">
+            <h3 class="text-2xl font-semibold">IT Support Assistant</h3>
+            <p class="italic text-c4">KCA University · 2023 – Present</p>
+            <ul class="mt-4 list-disc list-inside space-y-2 text-left inline-block">
+              <li>Resolved 50+ weekly technical issues, reducing system downtime by 25%</li>
+              <li>Managed patch deployments across 200+ endpoints, improving security compliance</li>
+            </ul>
+          </div>
 
-    <!-- Timeline list -->
-    <ol class="space-y-16">
-      <!-- Item 1: Experience -->
-      <li
-        class="fade-in md:flex md:items-center"
-        role="listitem"
-      >
-        <!-- Content on left -->
-        <div class="md:w-1/2 md:pr-12 md:text-right">
-          <h3 class="text-2xl font-semibold">IT Support Assistant</h3>
-          <p class="italic text-c4">KCA University · 2023 – Present</p>
-          <ul class="mt-4 list-disc list-inside space-y-2 text-left inline-block">
-            <li>Resolved 50+ weekly issues, reducing downtime by 25%.</li>
-            <li>Deployed patches across 200+ devices.</li>
-          </ul>
-        </div>
+          <!-- Timeline dot -->
+          <div class="relative md:w-[2rem] flex justify-center">
+            <span
+              class="absolute w-4 h-4 bg-c4 rounded-full ring-4 ring-c1 dark:ring-dark"
+              aria-hidden="true"
+            ></span>
+          </div>
+          <div class="md:w-1/2"></div>
+        </li>
 
-        <!-- Dot in center -->
-        <div class="relative md:w-[2rem] flex justify-center">
-          <span
-            class="absolute w-4 h-4 bg-c4 rounded-full ring-4 ring-c1 dark:ring-dark"
-            aria-hidden="true"
-          ></span>
-        </div>
+        <!-- Item 2: Web Project -->
+        <li
+          class="fade-in md:flex md:items-center md:flex-row-reverse"
+          role="listitem"
+        >
+          <div class="md:w-1/2 md:pl-12">
+            <h3 class="text-2xl font-semibold">Web Developer (Project)</h3>
+            <p class="italic text-c4">Swiss Beam Daycare · Jan 2024 – Apr 2024</p>
+            <ul class="mt-4 list-disc list-inside space-y-2">
+              <li>Implemented real-time notification system, reducing manual workload by 30%</li>
+              <li>Conducted UI/UX testing sessions achieving 95% user satisfaction rate</li>
+            </ul>
+          </div>
 
-        <!-- Empty spacer -->
-        <div class="md:w-1/2"></div>
-      </li>
+          <!-- Timeline dot -->
+          <div class="relative md:w-[2rem] flex justify-center">
+            <span
+              class="absolute w-4 h-4 bg-c4 rounded-full ring-4 ring-c1 dark:ring-dark"
+              aria-hidden="true"
+            ></span>
+          </div>
+          <div class="md:w-1/2"></div>
+        </li>
 
-      <!-- Item 2: Education -->
-      <li
-        class="fade-in md:flex md:items-center md:flex-row-reverse"
-        role="listitem"
-      >
-        <!-- Content on right -->
-        <div class="md:w-1/2 md:pl-12">
-          <h3 class="text-2xl font-semibold">BSc Information Technology</h3>
-          <p class="italic text-c4">KCA University · 2021 – 2025</p>
-          <p class="mt-4">
-            Specializing in database management &amp; cybersecurity.
-          </p>
-        </div>
+        <!-- Item 3: Education -->
+        <li
+          class="fade-in md:flex md:items-center"
+          role="listitem"
+        >
+          <div class="md:w-1/2 md:pr-12 md:text-right">
+            <h3 class="text-2xl font-semibold">BSc Information Technology</h3>
+            <p class="italic text-c4">KCA University · 2021 – 2025</p>
+            <div class="mt-4 space-y-2">
+              <p>Specializations:</p>
+              <ul class="list-disc list-inside">
+                <li>Database Management Systems</li>
+                <li>Cybersecurity Fundamentals</li>
+              </ul>
+            </div>
+          </div>
 
-        <!-- Dot in center -->
-        <div class="relative md:w-[2rem] flex justify-center">
-          <span
-            class="absolute w-4 h-4 bg-c4 rounded-full ring-4 ring-c1 dark:ring-dark"
-            aria-hidden="true"
-          ></span>
-        </div>
-
-        <!-- Empty spacer -->
-        <div class="md:w-1/2"></div>
-      </li>
-
-      <!-- Item 3: Experience -->
-      <li
-        class="fade-in md:flex md:items-center"
-        role="listitem"
-      >
-        <!-- Content on left -->
-        <div class="md:w-1/2 md:pr-12 md:text-right">
-          <h3 class="text-2xl font-semibold">Web Developer (Project)</h3>
-          <p class="italic text-c4">Swiss Bears Daycare · Jan 2024 – Apr 2024</p>
-          <ul class="mt-4 list-disc list-inside space-y-2 text-left inline-block">
-            <li>Integrated real-time notifications (30% workload ↓).</li>
-            <li>Led UI/UX tests (95% satisfaction).</li>
-          </ul>
-        </div>
-
-        <!-- Dot in center -->
-        <div class="relative md:w-[2rem] flex justify-center">
-          <span
-            class="absolute w-4 h-4 bg-c4 rounded-full ring-4 ring-c1 dark:ring-dark"
-            aria-hidden="true"
-          ></span>
-        </div>
-
-        <!-- Empty spacer -->
-        <div class="md:w-1/2"></div>
-      </li>
-    </ol>
+          <!-- Timeline dot -->
+          <div class="relative md:w-[2rem] flex justify-center">
+            <span
+              class="absolute w-4 h-4 bg-c4 rounded-full ring-4 ring-c1 dark:ring-dark"
+              aria-hidden="true"
+            ></span>
+          </div>
+          <div class="md:w-1/2"></div>
+        </li>
+      </ol>
+    </div>
   </div>
-</div>
 </section>
-
 
   <!-- Contact -->
   <section id="contact" class="py-20 bg-c2 dark:bg-dark text-center"> 
